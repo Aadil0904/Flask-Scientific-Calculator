@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Scientific Calculator</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+      function updateForm() {
+        var operation = document.getElementById("operation").value;
+        var var2Input = document.getElementById("var_2_input");
+
+        if (
+          operation === "Sine" ||
+          operation === "Cosine" ||
+          operation === "Tangent" ||
+          operation === "SquareRoot"
+        ) {
+          // For operations that require only one number, hide the second input
+          var2Input.style.display = "none";
+        } else {
+          // For other operations, show the second input
+          var2Input.style.display = "block";
+        }
+      }
+    </script>
+  </head>
+
+  <body align="center">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <legend><h1>SCIENTIFIC CALCULATOR</h1></legend>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form id="calculatorForm" class="form-horizontal" method="post">
+          <div class="form-group">
+            <label class="control-label col-xs-3" for="var_1">Number1 :</label>
+            <div class="col-xs-7">
+              <input
+                type="number"
+                class="form-control"
+                name="var_1"
+                value="{{ request.form['var_1'] }}"
+                placeholder="&nbsp;0&nbsp;"
+              />
+            </div>
+          </div>
+          <div class="form-group" id="var_2_input">
+            <label class="control-label col-xs-3" for="var_2">Number2 :</label>
+            <div class="col-xs-7">
+              <input
+                type="number"
+                class="form-control"
+                name="var_2"
+                value="{{ request.form['var_2'] }}"
+                placeholder="&nbsp;0&nbsp;"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-3">Operation:</label>
+            <div class="col-xs-7">
+              <select
+                class="form-control"
+                name="operation"
+                id="operation"
+                onchange="updateForm()"
+              >
+                <option>Addition</option>
+                <option>Subtraction</option>
+                <option>Multiplication</option>
+                <option>Division</option>
+                <option>Sine</option>
+                <option>Cosine</option>
+                <option>Tangent</option>
+                <option>SquareRoot</option>
+                <option>Power</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-offset-3 col-xs-9">
+              <input type="submit" class="btn btn-success" value="Submit" />
+              <input
+                type="reset"
+                class="btn btn-danger"
+                value="Reset"
+                onclick="resetForm()"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-3">Result :</label>
+            <div class="col-xs-7">
+              <input
+                type="text"
+                name="result"
+                class="form-control"
+                placeholder="{{ entry }}"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </body>
+</html>
